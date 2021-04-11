@@ -1,25 +1,25 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Query {
-    fetchCats: [Cat]!
-  }
+    type Query {
+        fetchCats: [Cat]!
+    }
 
-  type Mutation {
-    unlikeCat: CatResponse!
-    likeCat: CatResponse!
-  }
+    type Mutation {
+        unlikeCat: CatResponse!
+        likeCat: CatResponse!
+    }
 
-  type Cat {
-    id: ID!
-    name: String!
-  }
+    type Cat {
+        id: ID!
+        name: String!
+    }
 
-  type CatResponse {
-    success: Boolean!
-    error: String
-    data: Cat
-  }
+    type CatResponse {
+        success: Boolean!
+        error: String
+        data: Cat
+    }
 `;
 
 module.exports = typeDefs;

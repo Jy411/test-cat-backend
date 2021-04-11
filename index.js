@@ -1,30 +1,37 @@
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import { typeDefs, resolvers } from "./schema";
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 
-async function startApolloServer() {
-  const app = express();
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-  });
-  await server.start();
+import './utils/db';
+import schema from './schema';
+import dotenv from 'dotenv';
 
-  server.applyMiddleware({ app });
+dotenv.config();
 
-  app.use((req, res) => {
-    res.status(200);
-    res.send("This is a graphQL Backend!");
-    res.end();
-  });
+async function startApolloServer(port, callback) {
+    const app = express();
+    const server = new ApolloServer({
+        schema,
+        playground: process.env.NODE_ENV === 'development',
+    });
+    await server.start();
 
-  await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
-  return { server, app };
+    server.applyMiddleware({ app });
+
+    app.use((req, res) => {
+        res.status(200);
+        res.send('This is a graphQL Backend!');
+        res.end();
+    });
+
+    await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
+    // console.log(
+    //     `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
+    // );
+    return { server, app };
 }
 
 try {
-  startApolloServer();
+    startApolloServer();
 } catch (error) {
-  console.log("An Error Occured!", error);
+    console.log('An Error Occured!', error);
 }

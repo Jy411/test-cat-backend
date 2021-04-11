@@ -1,4 +1,15 @@
-const typeDefs = require("./typeDefs");
-const resolvers = require("./resolvers");
+import { SchemaComposer } from 'graphql-compose';
 
-module.exports = { typeDefs, resolvers };
+const schemaComposer = new SchemaComposer();
+
+import { CatQuery } from './cat';
+
+schemaComposer.Query.addFields({
+    ...CatQuery,
+});
+
+schemaComposer.Mutation.addFields({
+    // ...CatMutation,
+});
+
+export default schemaComposer.buildSchema();
