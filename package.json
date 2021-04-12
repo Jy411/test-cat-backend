@@ -10,7 +10,6 @@
   },
   "scripts": {
     "start": "nodemon -r esm src/index.js",
-    "build": "babel src --out-dir src/dist",
     "dev": "nodemon --exec npx babel-node src/index.js",
     "prettier": "prettier --config ./.prettierrc --write \"**/*.js\"",
     "pretest": "eslint --ignore-path .gitignore .",
