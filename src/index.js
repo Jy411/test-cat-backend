@@ -11,7 +11,7 @@ async function startApolloServer(port, callback) {
     const app = express();
     const server = new ApolloServer({
         schema,
-        playground: process.env.NODE_ENV === 'development',
+        playground: true,
     });
     await server.start();
 
